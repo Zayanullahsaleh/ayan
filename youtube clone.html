@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Youtube.Clone</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+        <style>
+            .video-content {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 70px 1fr;
+            }
+            .video-display {
+                width: 100%;
+            }
+            .id {
+                width: 60px;
+                border-radius: 17.6172px;
+            }
+            .video-info {
+                align-items: center;
+                display: grid;
+                margin-left: 30px;
+                margin-top: 50px;
+            }
+            .video {
+                border-radius: 20px;
+                width: 400px;
+            }
+            .heading {
+                font-family: Roboto , Arial;
+                font-weight: 500;
+                margin-bottom: 0;
+                margin-top: 9px;
+            }
+            .channel-name , .video-stats {
+                font-family: Roboto , Arial;
+                font-weight: 300;
+                color: rgb(96, 96, 96);
+                font-size: 14px;
+            }
+            .channel-name {
+                line-height: 40px;
+                margin-bottom: 0;
+                margin-top: 0;
+            }
+            .video-stats {
+                margin-top: 0;
+                line-height: 10px;
+            }
+            .all-videos {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr ;
+                column-gap: 20px;
+            }
+            .header {
+                display: flex;
+                position: fixed;
+                top: 0;
+                right: 0;
+                left: 0;
+                height: 70px;
+                justify-content: space-between;
+                background-color: white;
+                border-bottom-color:rgb(110, 107, 107) ;
+                border: bottom width 2px;
+                z-index: 150;
+            }
+            .left-section {
+                display: flex;
+                align-items: center;
+                margin-top: 5pxS;
+            }
+            .menu-icon {
+                width: 50px;
+                object-fit: cover;
+                height: 40px;
+                margin-left: 20px;
+            }
+            .youtube-icon {
+                width: 90px;
+                height: 70px;   
+            }
+            .middle-section {
+                display: flex;
+                align-items: center;
+            } 
+            .search-bar {
+                border: none;
+                width: 500px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                margin-top: 10px;
+                border-radius: 20px;
+                padding-left: 20px;
+                border-top-right-radius:0 ;
+                border-bottom-right-radius: 0;
+                background-color: rgb(248, 248, 248);
+                border-color: rgb(248, 248, 248);
+            }
+            .search-bar::placeholder {
+                font-family: Roboto,Arial;
+                font-size: 15px;
+                color: rgb(196, 190, 190);
+            }
+            .search-icon {
+                width: 30px;
+            }
+            .search-button {
+                width: 60px;
+                height: 40px;
+                margin-top: 10px;
+                background-color: rgb(248, 248, 248);
+                border: solid;
+                border-color: rgb(211, 211, 211);
+                border-width: 1px;
+                border-top-right-radius: 20px;
+                border-bottom-right-radius: 20px;
+            }               
+            .mic-icon {
+                width: 25px;
+            }
+            .mic-button {
+                width: 40px;
+                height: 40px;
+                margin-top: 10px;
+                border-radius: 50%;
+                margin-left: 30px;
+                background-color: rgb(248, 248, 248);
+                border: solid;
+                border-color:rgb(211, 211, 211);
+                border-width: 1px;
+            }
+            .right-section {
+                display: flex;
+                align-items: center;
+            }
+            .upload-icon {
+                width: 30px;
+                margin-right: 30px;
+            }
+            .subscriptions-icon {
+                width: 30px;
+                margin-right: 30px;
+            }
+            .user-id {
+                width: 30px;
+                margin-right: 30px;
+                height: 30px;
+                border-radius: 50%;
+            }
+            .user-id:hover {
+                cursor: pointer;
+            }
+            .sidebar {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 70px;
+                bottom: 0;
+                left: 0;
+                align-items: flex-start;
+                width: 90px;
+                background-color: rgb(255, 255, 255);
+                z-index: 500;
+            }
+            .home {
+                height: 30px;
+                width: 30px;
+                margin-left: 20px;
+                margin-bottom: 0;
+            }
+            .home-name {
+                font-family: Roboto;
+                font-size: 10px;
+                font-weight: bold;
+                margin-left: 20px;
+                margin-top: 8px;
+                line-height: 4px;
+            }
+            .subscribe {
+                height: 30px;
+                width: 30px;
+                margin-left: 20px;
+                margin-bottom: 0;
+            }
+            .subscribe-name {
+                font-family: Roboto;
+                font-size: 10px;
+                font-weight: bold;
+                margin-left: 20px;
+                margin-top: 8px;
+                line-height: 4px;      
+            }
+            .library {
+                height: 30px;
+                width: 30px;
+                margin-left: 20px;
+                margin-bottom: 0;
+            }
+            .library-name {
+                font-family: Roboto;
+                font-size: 10px;
+                font-weight: bold;
+                margin-left: 20px;
+                margin-top: 8px;
+                line-height: 4px;
+            }
+            .home-info {
+                margin-bottom: 30px;
+                margin-top: 30px;
+            }
+            .subscribe-info {
+                margin-bottom: 30px;
+            }
+            .library-info {
+                margin-bottom: 30px;
+            }
+            .body {
+                padding-top: 80px;
+                padding-left: 100px;
+                background-color: rgb(245, 235, 235);
+            }
+            .video-display:hover {
+                cursor: pointer;
+            }
+            .video-display {
+                position: relative;
+            }
+            .time {
+                position: absolute;
+                background-color: black;
+                bottom: 9px;
+                right: 25px;
+                color: white;
+                font-family: Roboto,Arial;
+                padding: 8px;
+                font-size: 13px;
+                border-radius: 3px;
+                font-weight: 500;
+            }
+            .notifications {
+                position: relative;
+            }
+            .notification-number {
+                background-color: brown;
+                color: white;
+                position: absolute;
+                top: 1px;
+                right: 30px;
+                border-radius: 7.5px;
+                width: 15px;
+                height: 15px;
+                vertical-align: middle;
+                
+            }
+            .search div {
+                background-color: black;
+                color: white;
+                position: absolute;
+                bottom: -35px;
+                right: 12px;
+                font-family: Roboto,Arial;
+                font-weight:500 ;
+                padding: 8px;
+                font-size: 10px;
+                border-radius: 4px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.15s;
+                
+            }
+            .search:hover div {
+                opacity: 1;
+                cursor: pointer;
+            }
+            .search {
+                position: relative;
+                display: flex;
+                align-items: center;
+            }
+            .mic {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: row;
+            }
+            .mic div {
+                background-color: black;
+                color: white;
+                position: absolute;
+                bottom: -35px;
+                right: 0;
+                font-family: Roboto,Arial;
+                font-weight:500 ;
+                padding: 8px;
+                font-size: 10px;
+                border-radius: 4px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.15s;
+                text-wrap: nowrap;
+            }
+            .mic:hover div {
+                opacity: 1;
+                cursor: pointer;
+            }
+            .home-info, .subscribe-info,.library-info {
+                transition: background-color 0.15s;
+                width: 100%;
+
+            }
+            .home-info:hover {
+                background-color: rgb(238, 231, 231);
+                cursor: pointer;
+            }
+            .subscribe-info:hover {
+                background-color: rgb(238, 231, 231);
+                cursor: pointer;
+            }
+            .library-info:hover {
+                background-color: rgb(238, 231, 231);
+                cursor: pointer;
+            }
+            .upload {
+                position: relative;
+                display: flex;
+                align-items: center
+            }
+            .upload div {
+                background-color: black;
+                color: white;
+                position: absolute;
+                bottom: -35px;
+                right: 0;
+                font-family: Roboto,Arial;
+                font-weight:500 ;
+                padding: 8px;
+                font-size: 10px;
+                border-radius: 4px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.15s;
+            }
+            .upload:hover div {
+                opacity: 1;
+                cursor: pointer;
+            }
+            .notifications {
+                position: relative;
+                display: flex;
+                align-items: center 
+            }
+            .no {
+                background-color: black;
+                color: white;
+                position: absolute;
+                bottom: -35px;
+                right: 0;
+                font-family: Roboto,Arial;
+                font-weight:500 ;
+                padding: 8px;
+                font-size: 10px;
+                border-radius: 4px;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.15s;
+            }
+            .notifications:hover .no {
+                opacity: 1;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body class="body">
+        <div class="header">
+          <div class="left-section"><img  class="menu-icon" src="icons/menu.png"><img class="youtube-icon" src="icons/youtube.png"></div>
+          <div class="middle-section">
+            <input type="text" placeholder="Search" class="search-bar">
+            <div class="search"><button class="search-button"><img class="search-icon" src="icons/search_24dp_FILL0_wght400_GRAD0_opsz24.png"></button>
+                <div>Search</div>
+            </div>
+            <div class="mic"><button class="mic-button"><img class="mic-icon" src="icons/mic_24dp_FILL0_wght400_GRAD0_opsz24.png"></button>
+               <div> Search with Your Voice</div>
+            </div>
+          </div>
+          <div class="right-section">
+            <div class="upload">
+                <img class="upload-icon" src="icons/video_call_24dp_FILL0_wght400_GRAD0_opsz24.png">
+                <div>Upload</div>
+            </div>
+            <div class="notifications">
+                <img class="subscriptions-icon" src="icons/notifications_24dp_FILL0_wght400_GRAD0_opsz24.png">
+                <div class="notification-number">3</div>
+                <div class="no">Notifications</div>
+            </div>
+            <img class="user-id" src="icons/download (1).jpg">
+          </div>
+        </div>
+        <div class="sidebar">
+                <div class="home-info"><img class="home" src="icons/home_24dp_FILL0_wght400_GRAD0_opsz24.png"><p class="home-name">Home</p></div>
+                <div class="subscribe-info"><img class="subscribe" src="icons/subscriptions_24dp_FILL0_wght400_GRAD0_opsz24.png"><p class="subscribe-name">Subscriptions</p></div>
+                <div class="library-info"><img class="library" src="icons/video_library_24dp_FILL0_wght400_GRAD0_opsz24.png"><p class="library-name">Library</p></div>
+        </div>
+        <div class="all-videos">
+            <div class="video-info">
+                <div class="video-display">
+                    <img src="pictures/youtube project1.jpg" class="video">
+                    <div class="time">7:59</div>
+                </div>
+                <div class="video-content">
+                    <img src="pictures/picture.jpg" class="id">
+                    <div class="para">
+                        <p class="heading">How is Documentory Movies filmed?</p>
+                        <p class="channel-name">Super Simple Dev</p>
+                        <p class="video-stats">34 Million Views &#46; 3 Years ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="video-info">
+                <div class="video-display">
+                    <img src="pictures/thumbnail-1.webp" class="video">
+                    <div class="time">12:59</div>
+                </div>
+                <div class="video-content">
+                    <img src="pictures/channel-1.jpeg" class="id">
+                    <div class="para">
+                        <p class="heading">Coffee with John</p>
+                        <p class="channel-name">Interviwe with Him</p>
+                        <p class="video-stats">4 Million Views &#46; 1 Year ago</p>
+                    </div>
+                </div>
+            </div><div class="video-info">
+                <div class="video-display">
+                    <img src="pictures/thumbnail-4.webp" class="video">
+                    <div class="time">19:56</div>
+                </div>
+                <div class="video-content">
+                    <img src="pictures/channel-2.jpeg" class="id">
+                    <div class="para">
+                        <p class="heading">Factorisation Of Algebraic Equations</p>
+                        <p class="channel-name">Maths Tutor</p>
+                        <p class="video-stats">1k Views &#46; 6 Years ago</p>
+                    </div>
+                </div>
+            </div><div class="video-info">
+                <div class="video-display">
+                    <img src="pictures/thumbnail-5.webp" class="video">
+                    <div class="time">23:20</div>
+                </div>
+                <div class="video-content">
+                    <img src="pictures/channel-4.jpeg" class="id">
+                    <div class="para">
+                        <p class="heading">Algorithms</p>
+                        <p class="channel-name">Sir Maths</p>
+                        <p class="video-stats">1k Views &#46; 1 month ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="video-info">
+                <div class="video-display">
+                    <img src="pictures/youtube project1.jpg" class="video">
+                    <div class="time">10:59</div>
+                </div>
+                <div class="video-content">
+                    <img src="pictures/my-channel.jpeg" class="id">
+                    <div class="para">
+                        <p class="heading">How is Documentory Movies filmed?</p>
+                        <p class="channel-name">All about Films</p>
+                        <p class="video-stats">9 Million Views &#46; 12 Years ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="video-info">
+                <div class="video-display">
+                    <img src="pictures/youtube project 3.jpg" class="video">
+                    <div class="time">43:59</div>
+                </div>
+                <div class="video-content">
+                    <img src="pictures/picture.jpg" class="id">
+                    <div class="para">
+                        <p class="heading">Documentory Filmmaking</p>
+                        <p class="channel-name">Master Films</p>
+                        <p class="video-stats">1 Million Views &#46; 3 Years ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="video-info">
+                <div class="video-display">
+                    <img src="pictures/youtube 5.jpg" class="video">
+                    <div class="time">16:59</div>
+                </div>
+                <div class="video-content">
+                    <img src="pictures/picture.jpg" class="id">
+                    <div class="para">
+                        <p class="heading">Tips on Documentory Filmmaking</p>
+                        <p class="channel-name">Danny Live</p>
+                        <p class="video-stats">56 Million Views &#46; 13 Years ago</p>
+                    </div>
+                </div>
+            </div>
+            <div class="video-info">
+                <div class="video-display">
+                    <img src="pictures/png.PNG" class="video">
+                    <div class="time">17:09</div>
+                </div>
+                <div class="video-content">
+                    <img src="pictures/channel-5.jpeg" class="id">
+                    <div class="para">
+                        <p class="heading">Coding Skills</p>
+                        <p class="channel-name">Mr Programmer</p>
+                        <p class="video-stats">4k Views &#46; 3 months ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
